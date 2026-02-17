@@ -30,5 +30,6 @@ class mqProducer(mqProducerInterface):
 
     print(f"Just sent the message no. {self.message_count}")
 
+  def __del__(self) -> None:
     self.channel.close()
     self.connection.close()
