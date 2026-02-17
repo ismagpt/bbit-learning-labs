@@ -19,7 +19,7 @@ from solution.producer_sol import mqProducer  # pylint: disable=import-error
 
 
 def main(ticker: str, price: float, sector: str) -> None:
-    
+
     # Implement Logic to Create Routing Key from the ticker and sector variable -  Step 2
     #
     #                       WRITE CODE HERE!!!
@@ -33,11 +33,20 @@ def main(ticker: str, price: float, sector: str) -> None:
     #
     #                       WRITE CODE HERE!!!
     #
-    
-    
+
+
     producer.publishOrder(message)
 
 if __name__ == "__main__":
+
+  parser =argparse.ArgumentParser(
+    prog = "Publisher for Bloomberg",
+    description = "Publishes a message to a specific TopicExchange based on parameters like ticker, price and sector."
+  )
+
+  parser.add_argument("-t", "--ticker")
+  parser.add_argument("-p", "--price")
+  parser.add_argument("-s", "--sector")
 
     # Implement Logic to read the ticker, price and sector string from the command line and save them - Step 1
     #
