@@ -10,10 +10,10 @@ class mqConsumer(mqConsumerInterface):
         self.queue_name = queue_name
 
         self.setupRMQConnection()
-    
+
     def setupRMQConnection(self) -> None:
-        # Establish connection to the RabbitMQ service, declare a queue and exchange, 
-        # bind the binding key to the queue on the exchange and finally set up a 
+        # Establish connection to the RabbitMQ service, declare a queue and exchange,
+        # bind the binding key to the queue on the exchange and finally set up a
         # callback function for receiving messages
         con_params = pika.URLParameters(os.environ["AMQP_URL"])
         self.connection = pika.BlockingConnection(parameters=con_params)
@@ -33,16 +33,12 @@ class mqConsumer(mqConsumerInterface):
         # Print the UTF-8 string message and then close the connection.
         channel.basic_ack(method_frame.delivery_tag, False)
         print(body)
-        self.channel.close()
-        self.connection.close()
 
     def startConsuming(self) -> None:
         print(" [*] Waiting for messages. To exit press CTRL+C")
         self.channel.start_consuming()
-    
+
     def __del__(self) -> None:
         print("Closing RMQ connection on destruction")
         self.channel.close()
         self.connection.close()
-    
-
